@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{const m=document.getElementById('mission-modal');document.querySelectorAll('[data-open-modal]').forEach(b=>b.addEventListener('click',()=>m.classList.add('open')));const c=document.getElementById('close-modal');if(c)c.addEventListener('click',()=>m.classList.remove('open'));});

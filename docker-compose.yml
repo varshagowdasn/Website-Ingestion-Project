@@ -1,0 +1,22 @@
+services:
+  localstack:
+    image: localstack/localstack:3.8
+    ports: ["4566:4566"]
+    environment:
+      SERVICES: s3
+      AWS_DEFAULT_REGION: us-east-1
+  api:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      DATABASE_URL: sqlite+aiosqlite:///./data/app.db
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_REGION: us-east-1
+      S3_ENDPOINT_URL: http://localstack:4566
+      S3_BUCKET: website-assets
+      S3_PREFIX: website/
+      SITE_ROOT: ./data/site
+      BASE_URL: http://127.0.0.1:8000
+    depends_on: [localstack]
+    volumes: ["./data:/app/data"]
